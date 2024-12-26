@@ -1,0 +1,75 @@
+You are given an array 'arr' of length 'n'. Find the index(0-based) of a peak element in the array. If there are multiple peak numbers, return the index of any peak number.
+Peak element is defined as that element that is greater than both of its neighbors. If 'arr[i]' is the peak element, 'arr[i - 1]' < 'arr[i]' and 'arr[i + 1]' < 'arr[i]'.
+Assume 'arr[-1]' and 'arr[n]' as negative infinity.
+
+Example:
+Input: 'arr' = [1, 8, 1, 5, 3]
+Output: 1, 3
+Explanation: There are two possible answers. Both 8 and 5 are peak elements, so the correct answers are their positions, 1 and 3.
+
+
+Sample Input 2:
+3
+1 2 1 
+
+Expected Answer:
+1
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Solution {
+
+    // Method to find peak element
+    public static int findPeakElement(ArrayList<Integer> arr) {
+        // Iterate through the array
+        for (int i = 0; i < arr.size(); i++) {
+            if (i == 0) {
+                // Check if the first element is a peak
+                if (arr.get(i) > arr.get(i + 1)) {
+                    return i;
+                }
+            } else if (i == arr.size() - 1) {
+                // Check if the last element is a peak
+                if (arr.get(i) > arr.get(i - 1)) {
+                    return i;
+                }
+            } else {
+                // Check if the current element is a peak
+                if (arr.get(i) > arr.get(i + 1) && arr.get(i) > arr.get(i - 1)) {
+                    return i;
+                }
+            }
+        }
+        return -1; // Return -1 if no peak is found
+    }
+
+    // Main method to test the findPeakElement method
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.println("Enter the number of elements in the array:");
+        int n = scanner.nextInt();
+
+        
+        ArrayList<Integer> arr = new ArrayList<>();
+
+        // Read the elements into the ArrayList
+        System.out.println("Enter the elements of the array:");
+        for (int i = 0; i < n; i++) {
+            arr.add(scanner.nextInt());
+        }
+
+        // Find and print the peak element index
+        int peakIndex = findPeakElement(arr);
+        if (peakIndex != -1) {
+            System.out.println("Peak Element Index: " + peakIndex);
+            System.out.println("Peak Element: " + arr.get(peakIndex));
+        } else {
+            System.out.println("No peak element found.");
+        }
+
+        scanner.close();
+    }
+}
